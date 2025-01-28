@@ -1,6 +1,7 @@
 <h1>{{ movie.movie_title}}</h1>
 <ul>
 {% for desc in movie.description_set.all %}
-    <li>{{ desc.description }}</li>
+    <h3>Movie Description:</h3>
+    <p> {{ desc.description }} </p>
 {% endfor %}
 </ul>
