@@ -1,7 +1,13 @@
-<h1>{{ movie.movie_title}}</h1>
+{%  load static %}
+
+<link rel="stylesheet" href="{% static 'movies/style.css' %}">
+<h1>{{ movie.movie_title }}</h1>
 <ul>
 {% for desc in movie.description_set.all %}
     <h3>Movie Description:</h3>
     <p> {{ desc.description }} </p>
+    <div class="image">
+        <img alt="movie title" src="{% static 'movies/images/'%}{{ movie.movie_title }}.jpeg">
+    </div>
 {% endfor %}
 </ul>
