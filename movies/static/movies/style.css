@@ -1,5 +1,47 @@
+img {
+  max-width: 100%;
+  border = 2px #B26AED;
+}
+
 .image {
-    /* background: white url('images/Interstellar.jpeg') no-repeat; */
-    width: 500px;
-    height: 500px;
+    align-content: center
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+    border-bottom: 2px solid #B26AED;
+    padding-bottom: 10px;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px #B26AED;
+}
+
+li a {
+    text-align: center;
+    display: block;
+    padding: 15px;
+    color: #000000;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #B26AED;
 }
