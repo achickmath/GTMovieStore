@@ -26,6 +26,26 @@ h1 {
     2px -2px 0 #CCC5B9;
 }
 
+h3 {
+    color: #686256;
+    text-align: center;
+    text-shadow:
+    1px 1px 0 #CCC5B9,
+    -1px 1px 0 #CCC5B9,
+    -1px -1px 0 #CCC5B9,
+    1px -1px 0 #CCC5B9;
+}
+
+h5 {
+    color: #686256;
+    text-align: center;
+    text-shadow:
+    1px 1px 0 #CCC5B9,
+    -1px 1px 0 #CCC5B9,
+    -1px -1px 0 #CCC5B9,
+    1px -1px 0 #CCC5B9;
+}
+
 ul {
     padding: 0;
 }
