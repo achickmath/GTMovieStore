@@ -1,6 +1,5 @@
 img {
   max-width: 100%;
-  border = 2px #B26AED;
 }
 
 .image {
@@ -12,14 +11,19 @@ body {
     max-width: 60%;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background-color: #a9a9a9;
 }
 
 h1 {
-    color: #000000;
+    color: #686256;
     text-align: center;
-    border-bottom: 2px solid #B26AED;
+    border-bottom: 2px solid #c8a7e3;
     padding-bottom: 10px;
+    text-shadow:
+    2px 2px 0 #CCC5B9,
+    -2px 2px 0 #CCC5B9,
+    -2px -2px 0 #CCC5B9,
+    2px -2px 0 #CCC5B9;
 }
 
 ul {
@@ -28,7 +32,7 @@ ul {
 
 li {
     margin-bottom: 10px;
-    background-color: #fff;
+    background-color: #CCC5B9;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 2px 5px #B26AED;
@@ -43,5 +47,5 @@ li a {
 }
 
 li a:hover {
-    background-color: #B26AED;
+    background-color: #c8a7e3;
 }
