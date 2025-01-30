@@ -1,6 +1,9 @@
-from django.http import HttpResponse
 from .models import Movie
 from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404
+
+from .models import Movie
+
 
 # Create your views here.
 
