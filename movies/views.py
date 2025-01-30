@@ -19,3 +19,8 @@ def home(request):
 def detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     return render(request, "movies/detail.html", {"movie": movie})
+
+def landing(request):
+    return render(request, "movies/landing.html", {})
+def login(request):
+    return render(request, "movies/login.html", {})
