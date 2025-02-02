@@ -22,5 +22,9 @@ def detail(request, movie_id):
 
 def landing(request):
     return render(request, "movies/landing.html", {})
+
 def login(request):
     return render(request, "movies/login.html", {})
+
+def register(request):
+    return render(request, "movies/register.html", {})
