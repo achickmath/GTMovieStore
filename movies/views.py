@@ -25,6 +25,38 @@ def detail(request, movie_id):
 def landing(request):
     return render(request, "movies/landing.html", {})
 
+def resetpassword_page(request):
+    # Check if the HTTP request method is POST (form submission)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        passwordConfirm = request.POST.get('passwordConfirm')
+
+        # Check if a user with the provided username exists
+        if not User.objects.filter(username=username).exists():
+            # Display an error message if the username does not exist
+            messages.error(request, 'Invalid Username')
+            return redirect('/resetpassword/')
+
+        if password != passwordConfirm:
+            messages.error(request, 'Passwords do not match')
+            return redirect('/resetpassword/')
+
+        user = (User.objects.get(username=username))
+        user.set_password(passwordConfirm)
+        user.save()
+
+        if user is None:
+            # Display an error message if authentication fails (invalid password)
+            messages.error(request, "Invalid Password")
+            return redirect('/login/')
+        else:
+            # Log in the user and redirect to the home page upon successful login
+            login(request, user)
+            return redirect('home')
+
+    return render(request, "movies/resetpassword.html", {})
+
 def login_page(request):
     # Check if the HTTP request method is POST (form submission)
     if request.method == "POST":
