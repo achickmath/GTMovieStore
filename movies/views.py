@@ -60,6 +60,29 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        if (len(password) < 8):
+            messages.info(request, 'Password is too short.')
+            return redirect('/register')
+        if (len(password) > 20):
+            messages.info(request, "Password is too long.")
+            return redirect('/register')
+        uppercaseStatus = False
+        specialCharacterStatus = False
+        for i in range(len(password)):
+            if password[i].isupper():
+                uppercaseStatus = True
+            if password[i] == "!" or password[i] == "?" or password[i] == "." or password[i] == "#" or password[i] == "@":
+                specialCharacterStatus = True
+        if not uppercaseStatus and specialCharacterStatus:
+            messages.info(request, 'The password is missing both an uppercase character and a special character.')
+            return redirect('/register')
+        if not uppercaseStatus:
+            messages.info(request, 'Password needs at least one uppercase character.')
+            return redirect('/register')
+        if not specialCharacterStatus:
+            messages.info(request, 'Password needs at least one special character.')
+            return redirect('/register')
+
         # Check if a user with the provided username already exists
         user = User.objects.filter(username=username)
 
