@@ -25,6 +25,9 @@ def detail(request, movie_id):
 def landing(request):
     return render(request, "movies/landing.html", {})
 
+def cart(request):
+    return render(request, "movies/cart.html", {})
+
 def login_page(request):
     # Check if the HTTP request method is POST (form submission)
     if request.method == "POST":
@@ -73,7 +76,7 @@ def register(request):
                 uppercaseStatus = True
             if password[i] == "!" or password[i] == "?" or password[i] == "." or password[i] == "#" or password[i] == "@":
                 specialCharacterStatus = True
-        if not uppercaseStatus and specialCharacterStatus:
+        if not uppercaseStatus and not specialCharacterStatus:
             messages.info(request, 'The password is missing both an uppercase character and a special character.')
             return redirect('/register')
         if not uppercaseStatus:
