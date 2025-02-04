@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.landing, name="landing"),
     path("login/", views.login_page, name="login"),
     path('register/', views.register, name='register'),
+    path('resetpassword/', views.resetpassword_page, name='register'),
     path("home/", views.home, name="home"),
     path("<int:movie_id>/", views.detail, name="detail"),
 ]
