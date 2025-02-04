@@ -11,4 +11,6 @@ urlpatterns = [
     path('resetpassword/', views.resetpassword_page, name='register'),
     path("home/", views.home, name="home"),
     path("<int:movie_id>/", views.detail, name="detail"),
+
+    path("cart/", views.cart, name="cart"),
 ]

@@ -25,9 +25,6 @@ def detail(request, movie_id):
 def landing(request):
     return render(request, "movies/landing.html", {})
 
-def resetpassword_page(request):
-    return render(request, "movies/resetpassword.html", {})
-
 def login_page(request):
     # Check if the HTTP request method is POST (form submission)
     if request.method == "POST":
