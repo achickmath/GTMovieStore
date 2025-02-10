@@ -6,6 +6,11 @@ img {
     align-content: center
 }
 
+.poster {
+    max-width: 30%;
+    max-height: 30%;
+}
+
 body {
     font-family: Arial, sans-serif;
     max-width: 100%;
@@ -71,6 +76,7 @@ li a {
 li a:hover {
     background-color: #c8a7e3;
 }
+
 
 #login-button {
     margin-top: 40px;
