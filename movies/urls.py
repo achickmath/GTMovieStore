@@ -8,9 +8,9 @@ urlpatterns = [
     path("", views.landing, name="landing"),
     path("login/", views.login_page, name="login"),
     path('register/', views.register, name='register'),
-    path('resetpassword/', views.resetpassword_page, name='register'),
+    path('login/resetpassword/', views.resetpassword_page, name='register'),
     path("home/", views.home, name="home"),
-    path("<int:movie_id>/", views.detail, name="detail"),
+    path("home/<int:movie_id>/", views.detail, name="detail"),
 
-    path("cart/", views.cart, name="cart"),
+    path("home/cart/", views.cart, name="cart"),
 ]
