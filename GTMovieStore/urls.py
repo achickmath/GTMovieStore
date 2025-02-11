@@ -22,5 +22,6 @@ urlpatterns = [
     path("login/", include("movies.urls")),
     path("register/", include("movies.urls")),
     path("home/", include("movies.urls")),
+    path("loggingout/", include("movies.urls")),
     path('admin/', admin.site.urls)
 ]

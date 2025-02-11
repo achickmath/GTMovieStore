@@ -5,8 +5,12 @@
 
 <body>
   <div class="container">
+    <p class="userwelcome"> Welcome {{ user.first_name }}! </p>
+    <form action="{% url 'loggingout' %}" method="post">
+        {% csrf_token %}
+        <button class="logout" type="submit"> Log Out </button>
+    </form>
     <h1 class="text-center my-4">Georgia Tech Movie Store 🐝🎬</h1>
-    
     {% if latest_movie_list %}
       <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         {% for movie in latest_movie_list %}
@@ -44,6 +48,23 @@
       .cart-icon:hover {
           background: #ffaa00;
           transform: scale(1.1);
+      }
+      .userwelcome {
+          top: 10px;
+          left: 20px;
+          font-size: 20px;
+      }
+      .logout {
+          top: 60px;
+          left: 20px;
+          background: #ffcc00;
+          padding: 12px;
+          border-radius: 50%;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+          transition: 0.3s;
+          font-size: 20px;
+          text-align: center;
       }
   </style>
   <a href="/cart" class="cart-icon">🛒</a>
