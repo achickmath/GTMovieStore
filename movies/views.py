@@ -97,7 +97,7 @@ def login_page(request):
         else:
             # Log in the user and redirect to the home page upon successful login
             login(request, user)
-            return redirect('home')
+            return redirect('/home/')
 
     # Render the login page template (GET request)
     return render(request, "movies/login.html", {})
@@ -120,7 +120,47 @@ def register(request):
                 # Display an information message if the username is taken
                 messages.info(request, "Username already taken!")
                 return redirect('/register/')
-
+            if (len(password) < 8):
+                messages.info(request, 'Password is too short.')
+                return redirect('/register')
+            if (len(password) > 20):
+                messages.info(request, "Password is too long.")
+                return redirect('/register')
+            uppercaseStatus = False
+            specialCharacterStatus = False
+            for i in range(len(password)):
+                if password[i].isupper():
+                    uppercaseStatus = True
+                if password[i] == "!" or password[i] == "?" or password[i] == "." or password[i] == "#" or password[
+                    i] == "@":
+                    specialCharacterStatus = True
+            if not uppercaseStatus and specialCharacterStatus:
+                messages.info(request, 'The password is missing both an uppercase character and a special character.')
+                return redirect('/register')
+            if not uppercaseStatus:
+                messages.info(request, 'Password needs at least one uppercase character.')
+                return redirect('/register')
+            if not specialCharacterStatus:
+                messages.info(request, 'Password needs at least one special character.')
+                return redirect('/register')
+            # Check if a user with the provided username already exists
+            user = User.objects.filter(username=username)
+            if user.exists():
+                # Display an information message if the username is taken
+                messages.info(request, "Username already taken!")
+                return redirect('/register/')
+            # Create a new User object with the provided information
+            user = User.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                username=username
+            )
+            # Set the user's password and save the user object
+            user.set_password(password)
+            user.save()
+            # Display an information message indicating successful account creation
+            messages.info(request, "Account created Successfully!")
+            return redirect('/login/')
             # Create a new User object with the provided information
             user = User.objects.create_user(
                 first_name=first_name,
