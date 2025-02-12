@@ -143,6 +143,7 @@ def register(request):
             if not specialCharacterStatus:
                 messages.info(request, 'Password needs at least one special character.')
                 return redirect('/register')
+
             # Check if a user with the provided username already exists
             user = User.objects.filter(username=username)
             if user.exists():
@@ -158,20 +159,6 @@ def register(request):
             # Set the user's password and save the user object
             user.set_password(password)
             user.save()
-            # Display an information message indicating successful account creation
-            messages.info(request, "Account created Successfully!")
-            return redirect('/login/')
-            # Create a new User object with the provided information
-            user = User.objects.create_user(
-                first_name=first_name,
-                last_name=last_name,
-                username=username
-            )
-
-            # Set the user's password and save the user object
-            user.set_password(password)
-            user.save()
-
             # Display an information message indicating successful account creation
             messages.info(request, "Account created Successfully!")
             return redirect('/login/')
