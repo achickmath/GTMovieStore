@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -18,6 +19,14 @@ class Description(models.Model):
 
     def __str__(self):
         return self.description
+
+# class CustomUser(AbstractUser):
+#     securityQuestion1 = models.CharField(max_length=200)
+#     securityQuestion2 = models.CharField(max_length=200)
+#     securityQuestion3 = models.CharField(max_length=200)
+#
+#     def __str__(self):
+#         return self.username
 
 
 
