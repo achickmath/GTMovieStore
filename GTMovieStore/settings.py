@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'movies.apps.MoviesConfig',
+    'accounts.apps.AccountsConfig',
+    'cart.apps.CartConfig',
+    'home.apps.HomeConfig'
 ]
 
 MIDDLEWARE = [
