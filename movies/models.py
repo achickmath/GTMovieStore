@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Movie(models.Model):
-    id = models.AutoField(primary_key=True, default=0)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, default='')
     price = models.IntegerField(default=0)
     description = models.TextField(default="")
