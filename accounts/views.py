@@ -3,6 +3,7 @@ import string
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.views import View
 from django.contrib import messages
 from django.conf import settings
 from django.utils.timezone import now
@@ -14,7 +15,7 @@ from .forms import CustomUserCreationForm, CustomErrorList
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
+#from .forms import ForgotPasswordForm, ResetPasswordForm
 @login_required
 def logout(request):
     auth_logout(request)
@@ -57,51 +58,42 @@ def orders(request):
     template_data['orders'] = request.user.order_set.all()
     return render(request, 'accounts/orders.html', {'template_data': template_data})
 
-def generate_verification_code():
-    return ''.join(random.choices(string.digits, k=6))
-
 def forgot_password(request):
     if request.method == "POST":
-        email = request.POST.get("email")
-        user = User.objects.filter(email=email).first()
+        email = request.POST.get("email").strip()  # Get email input
+        user = User.objects.filter(username=email).first()  # Check if user exists
         if user:
-            code = generate_verification_code()
-            PasswordResetCode.objects.create(user=user, code=code, created_at=now())
-            send_mail(
-                "Password Reset Code",
-                f"Your verification code is: {code}",
-                settings.DEFAULT_FROM_EMAIL,
-                [email],
-                fail_silently=False,
-            )
-            request.session["reset_email"] = email
-            return redirect("accounts/verify_code")
+            return redirect("accounts.reset_password")  # Redirect with email in URL
         else:
-            messages.error(request, "Email not found.")
-    return render(request, "accounts/forgot_password.html")
+            messages.error(request, "Email not found. Please try again.")
 
-def verify_code(request):
-    if request.method == "POST":
-        email = request.session.get("reset_email")
-        code = request.POST.get("code")
-        user = User.objects.filter(email=email).first()
-        if user:
-            reset_entry = PasswordResetCode.objects.filter(user=user, code=code).first()
-            if reset_entry:
-                request.session["verified_email"] = email
-                return redirect("reset_password")
-            else:
-                messages.error(request, "Invalid code.")
-    return render(request, "accounts/verify_code.html")
+    return render(request, 'accounts/forgot_password.html')  # Show form again if email doesn't exist
 
-def resetpassword(request):
+def reset_password(request):
+    email = request.GET.get('email')  # Retrieve email from URL
+
+    if not email or not User.objects.filter(email=email).exists():
+        messages.error(request, "Invalid or expired reset link.")
+        return redirect("accounts.forgot_password")  # Redirect if email is invalid
+
     if request.method == "POST":
-        email = request.session.get("verified_email")
-        new_password = request.POST.get("password")
-        user = User.objects.filter(email=email).first()
-        if user:
-            user.password = make_password(new_password)
-            user.save()
-            messages.success(request, "Password reset successful. You can log in now.")
-            return redirect("login")
-    return render(request, "accounts/resetpassword.html")
+        new_password = request.POST.get("new_password").strip()
+        confirm_password = request.POST.get("confirm_password").strip()
+
+        if not new_password or not confirm_password:
+            messages.error(request, "Both password fields are required.")
+            return render(request, 'accounts/reset_password.html', {'email': email})
+
+        if new_password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return render(request, 'accounts/reset_password.html', {'email': email})
+
+        # Update user password
+        user = User.objects.get(email=email)
+        user.password = make_password(new_password)  # Hash password
+        user.save()
+
+        messages.success(request, "Password reset successfully! You can now log in.")
+        return redirect('accounts.login')  # Redirect to login page
+
+    return render(request, 'accounts/reset_password.html', {'email': email})
