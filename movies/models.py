@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Movie(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    price = models.IntegerField()
-    description = models.TextField()
-    image = models.ImageField(upload_to='movie_images/')
+    id = models.AutoField(primary_key=True, default=0)
+    name = models.CharField(max_length=255, default='')
+    price = models.IntegerField(default=0)
+    description = models.TextField(default="")
+    image = models.ImageField(upload_to='media/movie_images/', default='media/movie_images/default.jpg')
 
     def __str__(self):
         return str(self.id) + ' - ' + self.name

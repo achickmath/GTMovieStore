@@ -75,7 +75,7 @@ def forgot_password(request):
                 fail_silently=False,
             )
             request.session["reset_email"] = email
-            return redirect("verify_code")
+            return redirect("accounts/verify_code")
         else:
             messages.error(request, "Email not found.")
     return render(request, "accounts/forgot_password.html")
