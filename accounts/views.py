@@ -59,15 +59,17 @@ def orders(request):
     return render(request, 'accounts/orders.html', {'template_data': template_data})
 
 def forgot_password(request):
-    if request.method == "POST":
-        email = request.POST.get("email").strip()  # Get email input
+    if request.method == 'GET':
+        return render(request, 'accounts/forgot_password.html')  # Show form again if email doesn't exist
+    elif request.method == "POST":
+        email = request.POST['username']
         user = User.objects.filter(username=email).first()  # Check if user exists
-        if user:
+        print(user)
+        if user != None:
             return redirect("accounts.reset_password")  # Redirect with email in URL
         else:
             messages.error(request, "Email not found. Please try again.")
-
-    return render(request, 'accounts/forgot_password.html')  # Show form again if email doesn't exist
+            return redirect("accounts.forgot_password")  # Redirect with email in URL
 
 def reset_password(request):
     email = request.GET.get('email')  # Retrieve email from URL
