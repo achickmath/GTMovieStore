@@ -16,6 +16,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 #from .forms import ForgotPasswordForm, ResetPasswordForm
+from django.urls import reverse
+
 @login_required
 def logout(request):
     auth_logout(request)
@@ -60,23 +62,23 @@ def orders(request):
 
 def forgot_password(request):
     if request.method == 'GET':
-        return render(request, 'accounts/forgot_password.html')  # Show form again if email doesn't exist
+        return render(request, 'accounts/forgot_password.html')
     elif request.method == "POST":
         email = request.POST['username']
         user = User.objects.filter(username=email).first()  # Check if user exists
         print(user)
-        if user != None:
-            return redirect("accounts.reset_password")  # Redirect with email in URL
-        else:
+        if user is None:
             messages.error(request, "Email not found. Please try again.")
-            return redirect("accounts.forgot_password")  # Redirect with email in URL
+            return redirect("accounts.forgot_password")
+        else:
+            return redirect(reverse("accounts.reset_password") + f"?email={email}")
+
 
 def reset_password(request):
     email = request.GET.get('email')  # Retrieve email from URL
 
-    if not email or not User.objects.filter(email=email).exists():
-        messages.error(request, "Invalid or expired reset link.")
-        return redirect("accounts.forgot_password")  # Redirect if email is invalid
+    if request.method == 'GET':
+        return render(request, 'accounts/reset_password.html')
 
     if request.method == "POST":
         new_password = request.POST.get("new_password").strip()
@@ -91,7 +93,7 @@ def reset_password(request):
             return render(request, 'accounts/reset_password.html', {'email': email})
 
         # Update user password
-        user = User.objects.get(email=email)
+        user = User.objects.get(username=email)
         user.password = make_password(new_password)  # Hash password
         user.save()
 
