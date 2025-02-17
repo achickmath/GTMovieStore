@@ -54,12 +54,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'moviesstore.urls'
+ROOT_URLCONF = 'GTMovieStore.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'moviesstore/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'GTMovieStore/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'moviesstore.wsgi.application'
+WSGI_APPLICATION = 'GTMovieStore.wsgi.application'
 
 
 # Database
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -128,7 +128,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'moviesstore/static/',
+    BASE_DIR / 'GTMovieStore/static/',
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
